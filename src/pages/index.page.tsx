@@ -1,36 +1,40 @@
 import { trpc } from '@/utils/trpc';
-import { Top } from './Top';
-import { getSession } from '@/lib/getSession';
 import { GetServerSideProps } from 'next';
 
 type Props = {
-  json: { name: string };
+  name: string;
 };
 
 export default function Home(props: Props) {
-  const { data, isLoading } = trpc.hello.getHello.useQuery({ text: 'world' });
+  const { data, isLoading, refetch } = trpc.hello.getHello.useQuery();
   if (isLoading) {
     return <div>loading...</div>;
   }
 
   return (
     <>
-      <Top />
-      <h2>{props.json.name}</h2>
-      <h2>{data && data.greeting}</h2>
+      <section>
+        <h2>Client Fetch</h2>
+        <div>
+          <button onClick={() => refetch()}>Refetch</button>
+          <p>{isLoading || !data ? 'loading...' : data.greeting}</p>
+        </div>
+      </section>
+      <br />
+      <section>
+        <h2>gSSP</h2>
+        <p>{props.name}</p>
+      </section>
     </>
   );
 }
 
-export const getServerSideProps = (async ({ req, res }) => {
+export const getServerSideProps = (async () => {
   const data = await fetch('http://localhost:3000/api/hello');
-  console.log('data', data);
   const json = await data.json();
-
-  const session = await getSession(req, res);
-  console.log({ session });
+  console.log('fetch: ', Date.now());
 
   return {
-    props: { json },
+    props: json,
   };
 }) satisfies GetServerSideProps<Props>;
