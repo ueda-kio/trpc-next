@@ -3,6 +3,7 @@ if (typeof window === 'undefined') {
     const { server } = await import('./server');
     server.listen();
     console.log('server start: ', Date.now());
+    console.log('server list: ', server.listHandlers());
   })();
 } else {
   // void (async () => {
