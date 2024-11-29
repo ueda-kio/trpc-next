@@ -6,10 +6,10 @@ if (typeof window === 'undefined') {
     console.log('server list: ', server.listHandlers());
   })();
 } else {
-  // void (async () => {
-  //   const { worker } = await import('./browser');
-  //   worker.start();
-  // })();
+  void (async () => {
+    const { worker } = await import('./browser');
+    worker.start();
+  })();
 }
 
 export {};
