@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "autoCreate:zodios-json-placeholder": "openapi-zod-client src/lib/server/api/spec/openapi-jsonPlaceholder.json --output src/lib/server/api/dist/jsonPlaceholder.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.56.2",
@@ -14,6 +15,7 @@
     "@trpc/next": "11.0.0-rc.502",
     "@trpc/react-query": "11.0.0-rc.502",
     "@trpc/server": "11.0.0-rc.502",
+    "@zodios/core": "^10.9.6",
     "next": "15.0.3",
     "next-session": "^4.0.5",
     "react": "^18",
@@ -27,6 +29,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.11",
     "msw": "^2.6.5",
+    "openapi-zod-client": "^1.18.2",
     "typescript": "^5"
   },
   "msw": {
