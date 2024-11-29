@@ -1,3 +1,4 @@
+import { jsonPlaceholderApi } from '@/lib/server/api/jsonPlaceholder';
 import { trpc } from '@/utils/trpc';
 import { GetServerSideProps } from 'next';
 
@@ -30,6 +31,13 @@ export default function Home(props: Props) {
 }
 
 export const getServerSideProps = (async () => {
+  try {
+    const posts = await jsonPlaceholderApi.get('/posts');
+    console.log('length', posts.length);
+  } catch (error) {
+    console.error(error);
+  }
+
   const data = await fetch('http://localhost:3000/api/hello');
   const json = await data.json();
   console.log('fetch: ', Date.now());
